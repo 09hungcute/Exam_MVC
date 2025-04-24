@@ -1,0 +1,26 @@
+@model ComicRentalSystem.Models.ComicBook
+
+@{
+    ViewData["Title"] = "Comic Book Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h3>@Model.BookName</h3>
+    <p>Author: @Model.Author</p>
+    <p>Description: @Model.Description</p>
+    <p>Genre: @Model.Genre</p>
+    <p>Price: @Model.Price.ToString("C")</p>  <!-- Hiển thị giá trị Price với định dạng tiền tệ -->
+    <p>Publication Date: @Model.PublicationDate.ToString("d")</p> <!-- Hiển thị ngày tháng -->
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" alt="@Model.BookName" style="max-width:200px; max-height:300px;" />
+    }
+    else
+    {
+        <p>No image available</p>
+    }
+</div>
+
+<a href="@Url.Action("Index", "ComicBooks")" class="btn btn-secondary">Back to List</a>

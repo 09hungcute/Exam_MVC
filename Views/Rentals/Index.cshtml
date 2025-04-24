@@ -1,0 +1,48 @@
+@model IEnumerable<ComicRentalSystem.Models.RentalDetail>
+@{
+    ViewData["Title"] = "Báo cáo thuê truyện";
+}
+
+<h2>Báo cáo thuê truyện</h2>
+
+<form method="get">
+    <div class="form-row d-flex gap-2">
+        <input name="startDate" type="date" value="@ViewBag.StartDate" class="form-control w-auto" />
+        <input name="endDate" type="date" value="@ViewBag.EndDate" class="form-control w-auto" />
+        <button type="submit" class="btn btn-primary">Lọc</button>
+    </div>
+</form>
+
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Truyện</th>
+            <th>Ngày thuê</th>
+            <th>Ngày trả</th>
+            <th>Khách</th>
+            <th>Số lượng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int i = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i++</td>
+                    <td>@item.ComicBook.BookName</td>
+                    <td>@item.Rental.RentalDate.ToShortDateString()</td>
+                    <td>@item.ReturnDate.ToShortDateString()</td>
+                    <td>@item.Rental.Customer.FullName</td>
+                    <td>@item.Quantity</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="6">Không có dữ liệu</td></tr>
+        }
+    </tbody>
+</table>

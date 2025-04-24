@@ -1,0 +1,38 @@
+@model IEnumerable<ComicRentalSystem.Models.ComicBook>
+
+<h1>Comic Books</h1>
+
+<a href="@Url.Action("Create", "ComicBooks")" class="btn btn-primary">Create New</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Publication Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BookName</td>
+                <td>@item.Author</td>
+                <td>@item.Price</td>
+                <td>@item.PublicationDate.ToString("d")</td>
+                <td>
+                    <a href="@Url.Action("Details", "ComicBooks", new { id = item.Id })" class="btn btn-info">Details</a>
+                    <a href="@Url.Action("Edit", "ComicBooks", new { id = item.Id })" class="btn btn-warning">Edit</a>
+                    
+                    <!-- Xóa trực tiếp -->
+                    <form method="post" action="@Url.Action("Delete", "ComicBooks", new { id = item.Id })" style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

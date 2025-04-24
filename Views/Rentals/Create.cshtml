@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Thuê truyện";
+}
+
+<h2>Thuê truyện</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label>Khách hàng</label>
+        <select name="customerId" class="form-control" asp-items="ViewBag.Customers"></select>
+    </div>
+
+    <div class="form-group">
+        <label>Ngày thuê</label>
+        <input name="rentalDate" type="date" class="form-control" />
+    </div>
+
+    <div id="book-list">
+        <div class="book-entry row">
+            <div class="col-md-3">
+                <select name="comicBookIds" class="form-control" asp-items="ViewBag.ComicBooks"></select>
+            </div>
+            <div class="col-md-2">
+                <input name="quantities" type="number" placeholder="Số lượng" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <input name="returnDates" type="date" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <input name="pricePerDay" type="number" step="0.01" class="form-control" placeholder="Giá/ngày" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" onclick="removeBook(this)" class="btn btn-danger">X</button>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-secondary mt-2" onclick="addBook()">+ Thêm truyện</button>
+    <button type="submit" class="btn btn-primary mt-2">Lưu thuê truyện</button>
+</form>
+
+<script>
+    function addBook() {
+        const list = document.getElementById('book-list');
+        const entry = list.firstElementChild.cloneNode(true);
+        list.appendChild(entry);
+    }
+
+    function removeBook(btn) {
+        const list = document.getElementById('book-list');
+        if (list.children.length > 1) {
+            btn.closest('.book-entry').remove();
+        }
+    }
+</script>
